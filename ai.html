@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Diagnosis</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(180deg); }
+        }
+        
+        .brain-icon {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(238, 90, 36, 0.4);
+            color: white;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            background: #f8f9ff;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .feature-description {
+            color: #6c757d;
+            line-height: 1.7;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 80px 0;
+            color: white;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #3498db;
+            counter-reset: number;
+            animation: countUp 2s ease-out forwards;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .step-card {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        /* Testimonials */
+        .testimonials-section {
+            padding: 100px 0;
+            background: #f8f9ff;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            margin: 2rem 0;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: #667eea;
+            position: absolute;
+            top: -10px;
+            left: 30px;
+            font-family: serif;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .testimonial-role {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+       
+        .back-btn { 
+            background: linear-gradient(135deg, #FF6B47, #FF5722); 
+            color: white; 
+            border: none; 
+            border-radius: 50px; 
+            padding: 16px 32px; 
+            font-size: 18px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            display: flex;
+            align-items: center; 
+            gap: 8px; transition: all 0.2s ease; 
+            box-shadow: 0 4px 20px rgba(255, 107, 71, 0.3); 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            margin-right: 700px;
+        } 
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255, 107, 71, 0.4); 
+            } 
+            .back-btn:active { transform: translateY(0); } 
+            .arrow { font-size: 20px; transition: transform 0.2s ease; } 
+            .back-btn:hover.arrow { transform: translateX(-3px); }
+         
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 100px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .brain-icon {
+                font-size: 3rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="hero-content">
+                        <div class="brain-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h1 class="hero-title">AI-Powered Diagnosis</h1>
+                        <p class="hero-subtitle">Advanced AI assistance for accurate medical insights</p>
+                        <a href="#features" class="cta-button">
+                            <i class="fas fa-arrow-right me-2"></i>
+                            Explore Features
+                        </a>
+                        <center>
+                            <a href="index2.html" class="back-btn"> 
+                                <i class="fas fa-arrow-right me-2">back</i>
+                            </a>
+                        </center>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="display-4 fw-bold mb-4 fade-in">Revolutionary Medical AI</h2>
+                    <p class="lead text-muted fade-in">Transforming healthcare with cutting-edge artificial intelligence technology</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <h4 class="feature-title">Advanced Analysis</h4>
+                        <p class="feature-description">Our AI analyzes medical data with unprecedented accuracy, identifying patterns that human eyes might miss.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4 class="feature-title">Lightning Fast</h4>
+                        <p class="feature-description">Get diagnostic insights in seconds, not hours. Our AI processes complex medical data instantly.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4 class="feature-title">Secure & Private</h4>
+                        <p class="feature-description">Your medical data is protected with enterprise-grade security and complete privacy compliance.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 class="feature-title">Continuous Learning</h4>
+                        <p class="feature-description">Our AI continuously improves its accuracy through machine learning and real-world feedback.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4 class="feature-title">Expert Collaboration</h4>
+                        <p class="feature-description">Developed in partnership with leading medical professionals and institutions worldwide.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4 class="feature-title">Mobile Ready</h4>
+                        <p class="feature-description">Access powerful diagnostic tools anywhere, anytime with our mobile-optimized platform.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item fade-in">
+                        <div class="stat-number" data-count="95">0</div>
+                        <div class="stat-label">Accuracy Rate</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item fade-in">
+                        <div class="stat-number" data-count="1000000">0</div>
+                        <div class="stat-label">Diagnoses Processed</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item fade-in">
+                        <div class="stat-number" data-count="500">0</div>
+                        <div class="stat-label">Healthcare Partners</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item fade-in">
+                        <div class="stat-number" data-count="24">0</div>
+                        <div class="stat-label">Hours Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="display-4 fw-bold mb-4 fade-in">How It Works</h2>
+                    <p class="lead text-muted fade-in">Simple, fast, and accurate diagnostic process</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card fade-in">
+                        <div class="step-number">1</div>
+                        <h4 class="step-title">Upload Data</h4>
+                        <p>Securely upload medical images, test results, or patient information to our platform.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card fade-in">
+                        <div class="step-number">2</div>
+                        <h4 class="step-title">AI Analysis</h4>
+                        <p>Our advanced AI algorithms analyze the data using deep learning and pattern recognition.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card fade-in">
+                        <div class="step-number">3</div>
+                        <h4 class="step-title">Get Results</h4>
+                        <p>Receive detailed diagnostic insights and recommendations within seconds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="display-4 fw-bold mb-4 fade-in">What Medical Professionals Say</h2>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="testimonial-card fade-in">
+                        <p class="testimonial-text">This AI diagnostic tool has revolutionized our practice. The accuracy and speed are remarkable.</p>
+                        <div class="testimonial-author">Dr. Sarah Johnson</div>
+                        <div class="testimonial-role">Chief of Radiology</div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="testimonial-card fade-in">
+                        <p class="testimonial-text">The insights provided by this AI system have helped us catch conditions we might have missed otherwise.</p>
+                        <div class="testimonial-author">Dr. Michael Chen</div>
+                        <div class="testimonial-role">Emergency Medicine</div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="testimonial-card fade-in">
+                        <p class="testimonial-text">An invaluable tool that enhances our diagnostic capabilities while maintaining patient privacy.</p>
+                        <div class="testimonial-author">Dr. Emily Rodriguez</div>
+                        <div class="testimonial-role">Internal Medicine</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fade-in">Ready to Transform Your Diagnostic Process?</h2>
+                    <p class="fade-in">Join thousands of medical professionals using AI-powered diagnosis tools</p>
+                    <div class="fade-in">
+                        <a href="#" class="cta-button me-3">Start Free Trial</a>
+                        <a href="#" class="btn btn-outline-light btn-lg">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="brain-icon mb-3">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h5>AI-Powered Diagnosis</h5>
+                    <p class="text-muted">Advanced AI assistance for accurate medical insights</p>
+                    <div class="social-links mt-4">
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-linkedin fa-2x"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-2x"></i></a>
+                    </div>
+                    <hr class="my-4">
+                    <p>&copy; 2024 AI-Powered Diagnosis. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Smooth scrolling for anchor links
+            $('a[href^="#"]').on('click', function(event) {
+                var target = $(this.getAttribute('href'));
+                if(target.length) {
+                    event.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 80
+                    }, 1000);
+                }
+            });
+            
+            // Fade in animation on scroll
+            function checkFade() {
+                $('.fade-in').each(function() {
+                    var elementTop = $(this).offset().top;
+                    var elementBottom = elementTop + $(this).outerHeight();
+                    var viewportTop = $(window).scrollTop();
+                    var viewportBottom = viewportTop + $(window).height();
+                    
+                    if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                        $(this).addClass('visible');
+                    }
+                });
+            }
+            
+            // Check fade in on scroll and load
+            $(window).on('scroll resize', checkFade);
+            checkFade(); // Initial check
+            
+            // Counter animation for stats
+            function animateCounters() {
+                $('.stat-number').each(function() {
+                    var $this = $(this);
+                    var countTo = $this.attr('data-count');
+                    var current = parseInt($this.text()) || 0;
+                    
+                    if (current < countTo) {
+                        var increment = Math.ceil((countTo - current) / 50);
+                        var newValue = current + increment;
+                        
+                        if (newValue > countTo) {
+                            newValue = countTo;
+                        }
+                        
+                        $this.text(newValue.toLocaleString());
+                        
+                        if (newValue < countTo) {
+                            setTimeout(function() {
+                                animateCounters();
+                            }, 50);
+                        }
+                    }
+                });
+            }
+            
+            // Start counter animation when stats section is visible
+            var statsAnimated = false;
+            $(window).scroll(function() {
+                var statsSection = $('.stats-section');
+                var statsTop = statsSection.offset().top;
+                var statsBottom = statsTop + statsSection.height();
+                var viewportTop = $(window).scrollTop();
+                var viewportBottom = viewportTop + $(window).height();
+                
+                if (!statsAnimated && statsBottom > viewportTop && statsTop < viewportBottom) {
+                    statsAnimated = true;
+                    animateCounters();
+                }
+            });
+            
+            // Add hover effects to cards
+            $('.feature-card, .testimonial-card').hover(
+                function() {
+                    $(this).css('transform', 'translateY(-10px)');
+                },
+                function() {
+                    $(this).css('transform', 'translateY(0)');
+                }
+            );
+            
+            // Add click effect to CTA buttons
+            $('.cta-button').on('click', function(e) {
+                e.preventDefault();
+                $(this).addClass('animate__pulse');
+                setTimeout(() => {
+                    $(this).removeClass('animate__pulse');
+                }, 600);
+            });
+            
+            // Parallax effect for hero section
+            $(window).scroll(function() {
+                var scrolled = $(window).scrollTop();
+                var parallaxSpeed = 0.5;
+                $('.hero-section::before').css('transform', 'translateY(' + (scrolled * parallaxSpeed) + 'px)');
+            });
+        });
+        
+        // Add loading animation
+        $(window).on('load', function() {
+            $('body').addClass('loaded');
+            $('.hero-content').addClass('visible');
+        });
+    </script>
+</body>
+</html>

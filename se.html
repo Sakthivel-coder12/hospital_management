@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Services</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .healthcare-section {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .healthcare-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            transform: translateX(-5px);
+            text-decoration: none;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .service-icon i {
+            font-size: 32px;
+            color: white;
+        }
+        
+        .service-title {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .service-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        
+        .specialization-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .specialization-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .specialization-title {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .doctor-count {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+        
+        .doctor-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .doctor-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .doctor-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 32px;
+            color: #6366f1;
+        }
+        
+        .doctor-name {
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .doctor-specialization {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .doctor-info {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .appointment-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .appointment-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            color: white;
+        }
+        
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-title {
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            color: white;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 12px 15px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
+            box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .page-title {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .service-card {
+                height: auto;
+                padding: 30px 20px;
+            }
+            
+            .doctor-card {
+                padding: 20px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+                margin: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="healthcare-section">
+        <div class="container">
+            <!-- Home Page -->
+            <div id="home-page" class="page active">
+                <h1 class="page-title">Healthcare Services</h1>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-card" onclick="showPage('doctors')">
+                            <div class="service-icon">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <h3 class="service-title">Expert Doctors</h3>
+                            <p class="service-description">Connect with qualified healthcare professionals</p>
+                        </div>
+                        <br> <br>
+                        <center>
+                            <button onclick="window.location.href = 'index2.html'" class="back-btn" style="color: #090909; padding: 20px; background-color: #f43c04; border-radius: 10px;"> 
+                                <i class="fas fa-arrow-right me-2">back</i>
+                            </button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctors/Specializations Page -->
+            <div id="doctors-page" class="page">
+                <a href="#" class="back-button" onclick="showPage('home')">
+                    <i class="fas fa-arrow-left"></i> Back to Services
+                </a>
+                <h2 class="page-title">Choose Your Specialization</h2>
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        <div class="specialization-card" onclick="showDoctors('cardiology')">
+                            <div class="specialization-title">
+                                <i class="fas fa-heartbeat me-2"></i> Cardiology
+                            </div>
+                            <div class="doctor-count">5 doctors available</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="specialization-card" onclick="showDoctors('neurology')">
+                            <div class="specialization-title">
+                                <i class="fas fa-brain me-2"></i> Neurology
+                            </div>
+                            <div class="doctor-count">4 doctors available</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="specialization-card" onclick="showDoctors('pediatrics')">
+                            <div class="specialization-title">
+                                <i class="fas fa-baby me-2"></i> Pediatrics
+                            </div>
+                            <div class="doctor-count">6 doctors available</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="specialization-card" onclick="showDoctors('orthopedics')">
+                            <div class="specialization-title">
+                                <i class="fas fa-bone me-2"></i> Orthopedics
+                            </div>
+                            <div class="doctor-count">3 doctors available</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="specialization-card" onclick="showDoctors('dermatology')">
+                            <div class="specialization-title">
+                                <i class="fas fa-spa me-2"></i> Dermatology
+                            </div>
+                            <div class="doctor-count">4 doctors available</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <div class="specialization-card" onclick="showDoctors('psychiatry')">
+                            <div class="specialization-title">
+                                <i class="fas fa-head-side-virus me-2"></i> Psychiatry
+                            </div>
+                            <div class="doctor-count">5 doctors available</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor List Page -->
+            <div id="doctor-list-page" class="page">
+                <a href="#" class="back-button" onclick="showPage('doctors')">
+                    <i class="fas fa-arrow-left"></i> Back to Specializations
+                </a>
+                <h2 class="page-title" id="specialization-title">Doctors</h2>
+                <div id="doctor-list" class="row"></div>
+            </div>
+
+            <!-- Appointment Form Page -->
+            <div id="appointment-page" class="page">
+                <a href="#" class="back-button" onclick="showPage('doctor-list')">
+                    <i class="fas fa-arrow-left"></i> Back to Doctors
+                </a>
+                <div class="form-container">
+                    <h2 class="form-title">Book Appointment</h2>
+                    <form id="appointment-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">First Name *</label>
+                                    <input type="text" class="form-control" placeholder="Enter your first name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Last Name *</label>
+                                    <input type="text" class="form-control" placeholder="Enter your last name" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number *</label>
+                            <input type="tel" class="form-control" placeholder="Enter your phone number" required>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Date of Birth *</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Gender *</label>
+                                    <select class="form-control" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Preferred Date *</label>
+                                    <input type="date" class="form-control" id="appointment-date" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Preferred Time *</label>
+                                    <select class="form-control" required>
+                                        <option value="">Select Time</option>
+                                        <option value="09:00">9:00 AM</option>
+                                        <option value="10:00">10:00 AM</option>
+                                        <option value="11:00">11:00 AM</option>
+                                        <option value="14:00">2:00 PM</option>
+                                        <option value="15:00">3:00 PM</option>
+                                        <option value="16:00">4:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Reason for Visit *</label>
+                            <textarea class="form-control" rows="4" placeholder="Please describe your symptoms or reason for consultation" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Medical History</label>
+                            <textarea class="form-control" rows="3" placeholder="Any relevant medical history, allergies, or current medications"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Emergency Contact Name</label>
+                            <input type="text" class="form-control" placeholder="Emergency contact name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Emergency Contact Phone</label>
+                            <input type="tel" class="form-control" placeholder="Emergency contact phone">
+                        </div>
+                        
+                        <div id="selected-doctor-info" class="mb-3"></div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-calendar-check me-2"></i>
+                            Book Appointment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <script>
+        // Doctor data
+        const doctorsData = {
+            cardiology: [
+                {
+                    name: "Dr. Sarah Johnson",
+                    specialization: "Interventional Cardiologist",
+                    experience: "15 years",
+                    education: "MD Harvard Medical School",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. Michael Chen",
+                    specialization: "Cardiac Surgeon",
+                    experience: "12 years",
+                    education: "MD Johns Hopkins",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Emily Rodriguez",
+                    specialization: "Pediatric Cardiologist",
+                    experience: "10 years",
+                    education: "MD Stanford University",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. David Wilson",
+                    specialization: "Electrophysiologist",
+                    experience: "18 years",
+                    education: "MD Mayo Clinic",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Lisa Thompson",
+                    specialization: "Heart Failure Specialist",
+                    experience: "14 years",
+                    education: "MD UCLA",
+                    icon: "👩‍⚕️"
+                }
+            ],
+            neurology: [
+                {
+                    name: "Dr. Robert Anderson",
+                    specialization: "Neurologist",
+                    experience: "20 years",
+                    education: "MD University of Pennsylvania",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Maria Garcia",
+                    specialization: "Pediatric Neurologist",
+                    experience: "13 years",
+                    education: "MD Columbia University",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. James Park",
+                    specialization: "Neurosurgeon",
+                    experience: "16 years",
+                    education: "MD University of Chicago",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Amanda White",
+                    specialization: "Epilepsy Specialist",
+                    experience: "11 years",
+                    education: "MD Duke University",
+                    icon: "👩‍⚕️"
+                }
+            ],
+            pediatrics: [
+                {
+                    name: "Dr. Jennifer Miller",
+                    specialization: "Pediatrician",
+                    experience: "12 years",
+                    education: "MD Boston University",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. Thomas Brown",
+                    specialization: "Pediatric Emergency Medicine",
+                    experience: "9 years",
+                    education: "MD Northwestern University",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Rachel Davis",
+                    specialization: "Neonatal Intensivist",
+                    experience: "14 years",
+                    education: "MD Vanderbilt University",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. Kevin Lee",
+                    specialization: "Pediatric Oncologist",
+                    experience: "17 years",
+                    education: "MD Memorial Sloan Kettering",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Michelle Taylor",
+                    specialization: "Developmental Pediatrician",
+                    experience: "8 years",
+                    education: "MD University of California",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. Christopher Martinez",
+                    specialization: "Pediatric Surgeon",
+                    experience: "15 years",
+                    education: "MD Children's Hospital Boston",
+                    icon: "👨‍⚕️"
+                }
+            ],
+            orthopedics: [
+                {
+                    name: "Dr. Steven Clark",
+                    specialization: "Orthopedic Surgeon",
+                    experience: "19 years",
+                    education: "MD Hospital for Special Surgery",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Nicole Adams",
+                    specialization: "Sports Medicine Specialist",
+                    experience: "11 years",
+                    education: "MD University of Michigan",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. Mark Johnson",
+                    specialization: "Spine Surgeon",
+                    experience: "16 years",
+                    education: "MD Cleveland Clinic",
+                    icon: "👨‍⚕️"
+                }
+            ],
+            dermatology: [
+                {
+                    name: "Dr. Jessica Wang",
+                    specialization: "Dermatologist",
+                    experience: "13 years",
+                    education: "MD Mount Sinai",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. Brian Smith",
+                    specialization: "Dermatopathologist",
+                    experience: "15 years",
+                    education: "MD University of Texas",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Laura Johnson",
+                    specialization: "Pediatric Dermatologist",
+                    experience: "10 years",
+                    education: "MD Children's Hospital Philadelphia",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. Daniel Kim",
+                    specialization: "Cosmetic Dermatologist",
+                    experience: "12 years",
+                    education: "MD New York University",
+                    icon: "👨‍⚕️"
+                }
+            ],
+            psychiatry: [
+                {
+                    name: "Dr. Susan Green",
+                    specialization: "Psychiatrist",
+                    experience: "18 years",
+                    education: "MD Yale University",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. Paul Davis",
+                    specialization: "Child Psychiatrist",
+                    experience: "14 years",
+                    education: "MD University of Washington",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Helen Rodriguez",
+                    specialization: "Addiction Psychiatrist",
+                    experience: "12 years",
+                    education: "MD Emory University",
+                    icon: "👩‍⚕️"
+                },
+                {
+                    name: "Dr. Richard Thompson",
+                    specialization: "Geriatric Psychiatrist",
+                    experience: "21 years",
+                    education: "MD University of Pittsburgh",
+                    icon: "👨‍⚕️"
+                },
+                {
+                    name: "Dr. Carol Martinez",
+                    specialization: "Forensic Psychiatrist",
+                    experience: "16 years",
+                    education: "MD George Washington University",
+                    icon: "👩‍⚕️"
+                }
+            ]
+        };
+
+        let selectedDoctor = null;
+        let currentSpecialization = null;
+
+        // Initialize the application
+        $(document).ready(function() {
+            // Set minimum date to today for all date inputs
+            const today = new Date().toISOString().split('T')[0];
+            $('input[type="date"]').attr('min', today);
+
+            // Form submission handler
+            $('#appointment-form').submit(function(e) {
+                e.preventDefault();
+                alert('Appointment booked successfully! You will receive a confirmation email shortly.');
+                
+                // Reset form and go back to home
+                this.reset();
+                showPage('home');
+            });
+        });
+
+        // Navigation functions
+        function showPage(pageId) {
+            $('.page').removeClass('active');
+            $(`#${pageId}-page`).addClass('active');
+        }
+
+        function showAIDiagnosis() {
+            alert('AI-Powered Diagnosis feature coming soon!');
+        }
+
+        function showHealthRecords() {
+            alert('Digital Health Records feature coming soon!');
+        }
+
+        function showDoctors(specialization) {
+            currentSpecialization = specialization;
+            const doctors = doctorsData[specialization];
+            const specializationTitle = specialization.charAt(0).toUpperCase() + specialization.slice(1);
+            
+            // Update page title
+            $('#specialization-title').text(`${specializationTitle} Doctors`);
+            
+            // Generate doctor cards HTML
+            let doctorHtml = '';
+            doctors.forEach((doctor, index) => {
+                doctorHtml += `
+                    <div class="col-lg-6 mb-4">
+                        <div class="doctor-card">
+                            <div class="doctor-image">${doctor.icon}</div>
+                            <div class="doctor-name">${doctor.name}</div>
+                            <div class="doctor-specialization">${doctor.specialization}</div>
+                            <div class="doctor-info">
+                                <strong>Experience:</strong> ${doctor.experience}<br>
+                                <strong>Education:</strong> ${doctor.education}
+                            </div>
+                            <button class="appointment-btn" onclick="bookAppointment(${index}, '${specialization}')">
+                                <i class="fas fa-calendar-plus me-2"></i>
+                                Book Appointment
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Update doctor list and show the page
+            $('#doctor-list').html(doctorHtml);
+            showPage('doctor-list');
+        }
+
+        function bookAppointment(doctorIndex, specialization) {
+            selectedDoctor = doctorsData[specialization][doctorIndex];
+            
+            // Display selected doctor info in the form
+            const doctorInfo = `
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <h5 style="color: white; margin-bottom: 10px;">
+                        <i class="fas fa-user-md me-2"></i>
+                        Appointment with ${selectedDoctor.name}
+                    </h5>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 0;">
+                        ${selectedDoctor.specialization} • ${selectedDoctor.experience} experience
+                    </p>
+                </div>
+            `;
+            
+            $('#selected-doctor-info').html(doctorInfo);
+            showPage('appointment');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare+ Hospital Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape shape1"></div>
+        <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <div class="navbar-brand" onclick="navigateToPage('home')">
+                <i class="fas fa-hospital-alt"></i> MediCare+
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="navLinks">
+                   
+                    <!-- Navigation links will be populated by JavaScript based on user role -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alert Container -->
+    <div id="alertContainer" class="container" style="margin-top: 90px; position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 9999; width: 90%; max-width: 500px;">
+    </div>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <div class="container" style="margin-top: 100px;">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mb-5">
+                    <div class="glass-card p-5">
+                        <h1 class="display-4 fw-bold text-white mb-4">
+                            <i class="fas fa-hospital-alt text-warning"></i>
+                            Welcome to MediCare+
+                        </h1>
+                        <p class="lead text-white mb-4">
+                            Advanced Hospital Management System for seamless healthcare operations
+                        </p>
+                        <div class="row mt-5">
+                            <div class="col-md-4 mb-3">
+                                <button class="btn btn-primary w-100" onclick="navigateToPage('login')">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </button>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <button class="btn btn-success w-100" onclick="navigateToPage('signup')">
+                                    <i class="fas fa-user-plus me-2"></i>Sign Up
+                                </button>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <button class="btn btn-outline-light w-100" onclick="navigateToPage('emergency')">
+                                    <i class="fas fa-ambulance me-2"></i>Emergency
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="dashboard-card" style="cursor: pointer;" 
+                        onclick="window.location.href='se.html'">
+                        <i class="fas fa-user-md"></i>
+                        <h4>Expert Doctors</h4>
+                        <p>Connect with qualified healthcare professionals</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="dashboard-card" style="cursor: pointer;" 
+                        onclick="window.location.href='ai.html'">
+                        <i class="fas fa-brain"></i>
+                        <h4>AI-Powered Diagnosis</h4>
+                        <p>Advanced AI assistance for accurate medical insights</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="dashboard-card" style="cursor: pointer;" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#uploadReportModal">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Digital Health Records</h4>
+                        <p>Secure and accessible medical records management</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="dashboard-card" style="cursor: pointer;" 
+                        onclick="navigateToPage('patient-dashboard')">
+                        <i class="fas fa-user-md"></i>
+                        <h4>patient Dashboard</h4>
+                        <p>Connect with qualified healthcare professionals</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="dashboard-card" style="cursor: pointer;" 
+                        onclick="navigateToPage('about')">
+                        <i class="fas fa-user-md"></i>
+                        <h4>ABOUT</h4>
+                        <p>Connect with qualified healthcare professionals</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="dashboard-card" style="cursor: pointer;" 
+                        onclick="navigateToPage('admin-dashboard')">
+                        <i class="fas fa-user-md"></i>
+                        <h4>admin-dashboard</h4>
+                        <p>Connect with qualified healthcare professionals</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+       
+
+    <!-- LOGIN PAGE -->
+    <div id="login" class="page">
+        <div class="container" style="margin-top: 120px;">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="glass-card p-4">
+                        <div class="text-center mb-4">
+                            <h2 class="text-white fw-bold">Login</h2>
+                            <p class="text-white-50">Enter your credentials to continue</p>
+                        </div>
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label text-white">Email</label>
+                                <input type="email" class="form-control" id="loginEmail" required>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label text-white">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="loginPassword" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginRole" class="form-label text-white">Role</label>
+                                <select class="form-select" id="loginRole" required>
+                                    <option value="">Select Role</option>
+                                    <option value="patient">Patient</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label text-white" for="rememberMe">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mb-3">
+                                <i class="fas fa-sign-in-alt me-2"></i>Login
+                            </button>
+                            <div class="text-center">
+                                <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a>
+                                <span class="text-white mx-2">|</span>
+                                <a href="#" class="text-white" onclick="navigateToPage('signup')">Sign Up</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGNUP PAGE -->
+    <div id="signup" class="page">
+        <div class="container" style="margin-top: 120px;">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="glass-card p-4">
+                        <div class="text-center mb-4">
+                            <h2 class="text-white fw-bold">Sign Up</h2>
+                            <p class="text-white-50">Create your account</p>
+                        </div>
+                        
+                        <!-- Multi-step form tabs -->
+                        <ul class="nav nav-tabs nav-fill mb-4" id="signupTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="step1-tab" data-bs-toggle="tab" data-bs-target="#step1" type="button" role="tab">
+                                    Step 1: Personal Info
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="step2-tab" data-bs-toggle="tab" data-bs-target="#step2" type="button" role="tab">
+                                    Step 2: Password
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="step3-tab" data-bs-toggle="tab" data-bs-target="#step3" type="button" role="tab">
+                                    Step 3: Profile Picture
+                                </button>
+                            </li>
+                        </ul>
+
+                        <form id="signupForm">
+                            <div class="tab-content">
+                                <!-- Step 1: Personal Info -->
+                                <div class="tab-pane fade show active" id="step1" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="firstName" class="form-label text-white">First Name</label>
+                                            <input type="text" class="form-control" id="firstName" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="lastName" class="form-label text-white">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="signupEmail" class="form-label text-white">Email</label>
+                                        <input type="email" class="form-control" id="signupEmail" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label text-white">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="signupRole" class="form-label text-white">Role</label>
+                                        <select class="form-select" id="signupRole" required>
+                                            <option value="">Select Role</option>
+                                            <option value="patient">Patient</option>
+                                            <option value="doctor">Doctor</option>
+                                        </select>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next</button>
+                                </div>
+
+                                <!-- Step 2: Password -->
+                                <div class="tab-pane fade" id="step2" role="tabpanel">
+                                    <div class="mb-3">
+                                        <label for="signupPassword" class="form-label text-white">Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="signupPassword" required>
+                                            <button class="btn btn-outline-secondary" type="button" id="toggleSignupPassword">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="password-strength mt-2">
+                                            <div class="progress">
+                                                <div class="progress-bar" id="passwordStrength" role="progressbar" style="width: 0%"></div>
+                                            </div>
+                                            <small class="text-white-50" id="passwordStrengthText">Enter a password</small>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirmPassword" class="form-label text-white">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirmPassword" required>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-outline-light" onclick="prevStep(1)">Previous</button>
+                                        <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next</button>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3: Profile Picture -->
+                                <div class="tab-pane fade" id="step3" role="tabpanel">
+                                    <div class="mb-3 text-center">
+                                        <label class="form-label text-white">Profile Picture (Optional)</label>
+                                        <div class="profile-upload-area border border-2 border-dashed rounded p-4 mt-2" style="border-color: rgba(255,255,255,0.3) !important;">
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-white-50 mb-3"></i>
+                                            <p class="text-white-50">Drag & drop your photo here or click to browse</p>
+                                            <input type="file" class="form-control" id="profilePicture" accept="image/*" style="display: none;">
+                                            <button type="button" class="btn btn-outline-light" onclick="document.getElementById('profilePicture').click()">Choose File</button>
+                                        </div>
+                                        <div id="imagePreview" class="mt-3" style="display: none;">
+                                            <img id="previewImg" src="" alt="Preview" class="img-thumbnail" style="max-width: 200px;">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-outline-light" onclick="prevStep(2)">Previous</button>
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-user-plus me-2"></i>Create Account
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD PAGES -->
+    
+    <!-- Patient Dashboard -->
+    <div id="patient-dashboard" class="page">
+        <div class="container-fluid" style="margin-top: 100px;">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3 col-lg-2" id="patientSidebar">
+                    <div class="sidebar glass-card p-3">
+                        <h5 class="text-white mb-4"><i class="fas fa-user me-2"></i>Patient Portal</h5>
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item mb-2">
+                                <a class="nav-link active sidebar-link" data-target="patient-overview">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Overview
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="patient-appointments">
+                                    <i class="fas fa-calendar-check me-2"></i>Appointments
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="patient-prescriptions">
+                                    <i class="fas fa-prescription me-2"></i>Prescriptions
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="patient-reports">
+                                    <i class="fas fa-file-medical me-2"></i>Medical Reports
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="patient-ai-triage">
+                                    <i class="fas fa-brain me-2"></i>AI Health Check
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="patient-profile">
+                                    <i class="fas fa-user-cog me-2"></i>Profile
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-9 col-lg-10">
+                    <!-- Patient Overview -->
+                    <div id="patient-overview" class="dashboard-content active">
+                        <h2 class="text-white mb-4">Dashboard Overview</h2>
+                        
+                        <!-- Stats Cards -->
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="upcomingAppointments">0</div>
+                                    <div class="stats-label">Upcoming Appointments</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="activePrescriptions">0</div>
+                                    <div class="stats-label">Active Prescriptions</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="medicalReports">0</div>
+                                    <div class="stats-label">Medical Reports</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="lastVisit">Never</div>
+                                    <div class="stats-label">Last Visit</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="glass-card p-4 mb-4">
+                            <h4 class="text-white mb-3">Quick Actions</h4>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <button class="btn btn-primary w-100" onclick="showBookAppointmentModal()">
+                                        <i class="fas fa-calendar-plus me-2"></i>Book Appointment
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <button class="btn btn-success w-100" onclick="switchDashboardContent('patient-ai-triage')">
+                                        <i class="fas fa-brain me-2"></i>AI Health Check
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <button class="btn btn-info w-100" onclick="switchDashboardContent('patient-prescriptions')">
+                                        <i class="fas fa-prescription me-2"></i>View Prescriptions
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <button class="btn btn-warning w-100" onclick="navigateToPage('emergency')">
+                                        <i class="fas fa-ambulance me-2"></i>Emergency
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="glass-card p-4">
+                            <h4 class="text-white mb-3">Recent Activity</h4>
+                            <div id="recentActivity" class="text-white-50">
+                                <p>No recent activity to display.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Patient Appointments -->
+                    <div id="patient-appointments" class="dashboard-content">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-white">My Appointments</h2>
+                            <button class="btn btn-primary" onclick="showBookAppointmentModal()">
+                                <i class="fas fa-calendar-plus me-2"></i>Book New Appointment
+                            </button>
+                        </div>
+
+                        <div class="glass-card p-4">
+                            <div class="table-responsive">
+                                <table class="table table-custom" id="appointmentsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Date & Time</th>
+                                            <th>Doctor</th>
+                                            <th>Specialization</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="appointmentsTableBody">
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted">No appointments found. Book your first appointment!</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Patient Prescriptions -->
+                    <div id="patient-prescriptions" class="dashboard-content">
+                        <h2 class="text-white mb-4">My Prescriptions</h2>
+                        
+                        <div class="glass-card p-4">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="prescriptionSearch" placeholder="Search prescriptions...">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" id="prescriptionFilter">
+                                        <option value="">All Prescriptions</option>
+                                        <option value="active">Active</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="ai-suggested">AI Suggested</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div id="prescriptionsList" class="row">
+                                <div class="col-12 text-center text-muted">
+                                    No prescriptions found.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Patient Medical Reports -->
+                    <div id="patient-reports" class="dashboard-content">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-white">Medical Reports</h2>
+                            <button class="btn btn-primary" onclick="showUploadReportModal()">
+                                <i class="fas fa-cloud-upload-alt me-2"></i>Upload Report
+                            </button>
+                        </div>
+
+                        <div class="glass-card p-4">
+                            <div id="reportsList" class="row">
+                                <div class="col-12 text-center text-muted">
+                                    No medical reports uploaded yet.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Patient AI Triage -->
+                    <div id="patient-ai-triage" class="dashboard-content">
+                        <h2 class="text-white mb-4">AI Health Assessment</h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="glass-card p-4 mb-4">
+                                    <h4 class="text-white mb-3">Symptom Checker</h4>
+                                    <form id="symptomForm">
+                                        <div class="mb-3">
+                                            <label for="symptoms" class="form-label text-white">Describe your symptoms</label>
+                                            <textarea class="form-control" id="symptoms" rows="4" placeholder="Please describe your symptoms in detail..."></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-brain me-2"></i>Analyze Symptoms
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="glass-card p-4 mb-4">
+                                    <h4 class="text-white mb-3">Medical Image Analysis</h4>
+                                    <div class="upload-area border border-2 border-dashed rounded p-4 text-center" style="border-color: rgba(255,255,255,0.3) !important;">
+                                        <i class="fas fa-images fa-3x text-white-50 mb-3"></i>
+                                        <p class="text-white-50">Upload medical images for AI analysis</p>
+                                        <input type="file" id="medicalImage" accept="image/*" style="display: none;">
+                                        <button type="button" class="btn btn-outline-light" onclick="document.getElementById('medicalImage').click()">
+                                            Choose Image
+                                        </button>
+                                    </div>
+                                    <div id="imageAnalysisResult" class="mt-3" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="aiResults" class="glass-card p-4" style="display: none;">
+                            <h4 class="text-white mb-3">AI Assessment Results</h4>
+                            <div id="aiResultsContent"></div>
+                        </div>
+                    </div>
+
+                    <!-- Patient Profile -->
+                    <div id="patient-profile" class="dashboard-content">
+                        <h2 class="text-white mb-4">My Profile</h2>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="profile-card">
+                                    <div class="profile-avatar" id="profileAvatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <h4 id="profileName">Loading...</h4>
+                                    <p id="profileRole">Patient</p>
+                                    <button class="btn btn-outline-light" onclick="document.getElementById('profileImageInput').click()">
+                                        Change Photo
+                                    </button>
+                                    <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="glass-card p-4">
+                                    <h4 class="text-white mb-4">Profile Information</h4>
+                                    <form id="profileForm">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="profileFirstName" class="form-label text-white">First Name</label>
+                                                <input type="text" class="form-control" id="profileFirstName">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="profileLastName" class="form-label text-white">Last Name</label>
+                                                <input type="text" class="form-control" id="profileLastName">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="profileEmail" class="form-label text-white">Email</label>
+                                                <input type="email" class="form-control" id="profileEmail">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="profilePhone" class="form-label text-white">Phone</label>
+                                                <input type="tel" class="form-control" id="profilePhone">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="profileAge" class="form-label text-white">Age</label>
+                                                <input type="number" class="form-control" id="profileAge">
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="profileGender" class="form-label text-white">Gender</label>
+                                                <select class="form-select" id="profileGender">
+                                                    <option value="">Select Gender</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="profileBloodGroup" class="form-label text-white">Blood Group</label>
+                                                <select class="form-select" id="profileBloodGroup">
+                                                    <option value="">Select Blood Group</option>
+                                                    <option value="A+">A+</option>
+                                                    <option value="A-">A-</option>
+                                                    <option value="B+">B+</option>
+                                                    <option value="B-">B-</option>
+                                                    <option value="AB+">AB+</option>
+                                                    <option value="AB-">AB-</option>
+                                                    <option value="O+">O+</option>
+                                                    <option value="O-">O-</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="profileAllergies" class="form-label text-white">Allergies</label>
+                                            <textarea class="form-control" id="profileAllergies" rows="2" placeholder="Enter any known allergies..."></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="profileMedications" class="form-label text-white">Current Medications</label>
+                                            <textarea class="form-control" id="profileMedications" rows="2" placeholder="Enter current medications..."></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-2"></i>Save Changes
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="page">
+        <div class="container-fluid" style="margin-top: 100px;">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3 col-lg-2" id="adminSidebar">
+                    <div class="sidebar glass-card p-3">
+                        <h5 class="text-white mb-4"><i class="fas fa-cogs me-2"></i>Admin Panel</h5>
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item mb-2">
+                                <a class="nav-link active sidebar-link" data-target="admin-overview">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Overview
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="admin-doctors">
+                                    <i class="fas fa-user-md me-2"></i>Manage Doctors
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="admin-patients">
+                                    <i class="fas fa-users me-2"></i>Manage Patients
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="admin-analytics">
+                                    <i class="fas fa-chart-bar me-2"></i>Analytics
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="admin-settings">
+                                    <i class="fas fa-cog me-2"></i>System Settings
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-9 col-lg-10">
+                    <!-- Admin Overview -->
+                    <div id="admin-overview" class="dashboard-content active">
+                        <h2 class="text-white mb-4">System Overview</h2>
+                        
+                        <!-- Stats Cards -->
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="totalDoctors">0</div>
+                                    <div class="stats-label">Total Doctors</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="totalPatients">0</div>
+                                    <div class="stats-label">Total Patients</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="totalAppointments">0</div>
+                                    <div class="stats-label">Total Appointments</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="systemUptime">99.9%</div>
+                                    <div class="stats-label">System Uptime</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Charts -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="glass-card p-4">
+                                    <h4 class="text-white mb-3">Appointments per Day</h4>
+                                    <canvas id="appointmentsChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="glass-card p-4">
+                                    <h4 class="text-white mb-3">Patient Demographics</h4>
+                                    <canvas id="demographicsChart" width="400" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Manage Doctors -->
+                    <div id="admin-doctors" class="dashboard-content">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-white">Manage Doctors</h2>
+                            <button class="btn btn-primary" onclick="showAddDoctorModal()">
+                                <i class="fas fa-plus me-2"></i>Add New Doctor
+                            </button>
+                        </div>
+
+                        <div class="glass-card p-4">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="doctorSearch" placeholder="Search doctors...">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" id="doctorFilter">
+                                        <option value="">All Specializations</option>
+                                        <option value="cardiology">Cardiology</option>
+                                        <option value="neurology">Neurology</option>
+                                        <option value="orthopedics">Orthopedics</option>
+                                        <option value="dermatology">Dermatology</option>
+                                        <option value="pediatrics">Pediatrics</option>
+                                        <option value="general">General Medicine</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-custom" id="doctorsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Specialization</th>
+                                            <th>Experience</th>
+                                            <th>Status</th>
+                                            <th>Patients</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="doctorsTableBody">
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">No doctors found.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Manage Patients -->
+                    <div id="admin-patients" class="dashboard-content">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-white">Manage Patients</h2>
+                            <div>
+                                <button class="btn btn-success me-2" onclick="exportPatients()">
+                                    <i class="fas fa-download me-2"></i>Export CSV
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="patientSearch" placeholder="Search patients...">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" id="patientFilter">
+                                        <option value="">All Patients</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="critical">Critical</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-custom" id="patientsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Age</th>
+                                            <th>Gender</th>
+                                            <th>Blood Group</th>
+                                            <th>Last Visit</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="patientsTableBody">
+                                        <tr>
+                                            <td colspan="7" class="text-center text-muted">No patients found.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Analytics -->
+                    <div id="admin-analytics" class="dashboard-content">
+                        <h2 class="text-white mb-4">System Analytics</h2>
+                        
+                        <!-- Time Period Filter -->
+                        <div class="glass-card p-3 mb-4">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <h5 class="text-white mb-0">Analytics Dashboard</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" id="analyticsFilter">
+                                        <option value="today">Today</option>
+                                        <option value="week" selected>This Week</option>
+                                        <option value="month">This Month</option>
+                                        <option value="year">This Year</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="glass-card p-4">
+                                    <h4 class="text-white mb-3">Disease Trends</h4>
+                                    <canvas id="diseaseTrendsChart" width="400" height="300"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="glass-card p-4">
+                                    <h4 class="text-white mb-3">Doctor Workload</h4>
+                                    <canvas id="doctorWorkloadChart" width="400" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4">
+                            <h4 class="text-white mb-3">Key Performance Indicators</h4>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="text-center">
+                                        <div class="stats-number text-success" id="satisfactionRate">0%</div>
+                                        <div class="stats-label">Patient Satisfaction</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-center">
+                                        <div class="stats-number text-info" id="avgWaitTime">0</div>
+                                        <div class="stats-label">Avg. Wait Time (min)</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-center">
+                                        <div class="stats-number text-warning" id="aiAccuracy">0%</div>
+                                        <div class="stats-label">AI Accuracy Rate</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Settings -->
+                    <div id="admin-settings" class="dashboard-content">
+                        <h2 class="text-white mb-4">System Settings</h2>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="glass-card p-4 mb-4">
+                                    <h4 class="text-white mb-3">General Settings</h4>
+                                    <form id="generalSettingsForm">
+                                        <div class="mb-3">
+                                            <label for="hospitalName" class="form-label text-white">Hospital Name</label>
+                                            <input type="text" class="form-control" id="hospitalName" value="MediCare+ Hospital">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="hospitalAddress" class="form-label text-white">Address</label>
+                                            <textarea class="form-control" id="hospitalAddress" rows="2"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="emergencyContact" class="form-label text-white">Emergency Contact</label>
+                                            <input type="tel" class="form-control" id="emergencyContact">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="glass-card p-4 mb-4">
+                                    <h4 class="text-white mb-3">AI Configuration</h4>
+                                    <form id="aiSettingsForm">
+                                        <div class="mb-3 form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="enableAI" checked>
+                                            <label class="form-check-label text-white" for="enableAI">
+                                                Enable AI Features
+                                            </label>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="aiConfidenceThreshold" class="form-label text-white">AI Confidence Threshold</label>
+                                            <input type="range" class="form-range" id="aiConfidenceThreshold" min="50" max="100" value="80">
+                                            <div class="text-white-50 text-center">80%</div>
+                                        </div>
+                                        <div class="mb-3 form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="autoTriage" checked>
+                                            <label class="form-check-label text-white" for="autoTriage">
+                                                Auto Triage Patients
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save AI Settings</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4">
+                            <h4 class="text-white mb-3">System Maintenance</h4>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button class="btn btn-warning w-100 mb-2">
+                                        <i class="fas fa-database me-2"></i>Backup Database
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-info w-100 mb-2">
+                                        <i class="fas fa-sync me-2"></i>Clear Cache
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-danger w-100 mb-2">
+                                        <i class="fas fa-power-off me-2"></i>System Restart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMERGENCY PAGE -->
+    <div id="emergency" class="page">
+        <div class="container" style="margin-top: 120px;">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="glass-card p-4">
+                        <div class="text-center mb-4">
+                            <h2 class="text-danger fw-bold">
+                                <i class="fas fa-exclamation-triangle me-2"></i>EMERGENCY
+                            </h2>
+                            <p class="text-white">For life-threatening emergencies, call 911 immediately</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="emergency-contact-card p-3 mb-3">
+                                    <h4 class="text-white">Emergency Hotline</h4>
+                                    <h2 class="text-danger">911</h2>
+                                    <p class="text-white-50">For immediate life-threatening situations</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="emergency-contact-card p-3 mb-3">
+                                    <h4 class="text-white">Hospital Emergency</h4>
+                                    <h2 class="text-warning">(555) 123-HELP</h2>
+                                    <p class="text-white-50">Direct hospital emergency line</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form id="emergencyForm">
+                            <h4 class="text-white mb-3">Quick Emergency Booking</h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="emergencyName" class="form-label text-white">Patient Name *</label>
+                                    <input type="text" class="form-control" id="emergencyName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="emergencyPhone" class="form-label text-white">Contact Number *</label>
+                                    <input type="tel" class="form-control" id="emergencyPhone" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="emergencySymptoms" class="form-label text-white">Emergency Symptoms/Condition *</label>
+                                <textarea class="form-control" id="emergencySymptoms" rows="3" placeholder="Describe the emergency condition..." required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="emergencyLocation" class="form-label text-white">Current Location</label>
+                                <input type="text" class="form-control" id="emergencyLocation" placeholder="Current location for ambulance dispatch">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="consciousCheck">
+                                <label class="form-check-label text-white" for="consciousCheck">
+                                    Patient is conscious and responsive
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-danger w-100">
+                                <i class="fas fa-ambulance me-2"></i>REQUEST EMERGENCY ASSISTANCE
+                            </button>
+                        </form>
+
+                        <div class="alert alert-info alert-custom mt-4">
+                            <h5><i class="fas fa-info-circle me-2"></i>Important Information</h5>
+                            <ul class="mb-0 text-dark">
+                                <li>For cardiac arrest, stroke, or severe trauma - Call 911 immediately</li>
+                                <li>Emergency department is open 24/7</li>
+                                <li>Average emergency response time: 8 minutes</li>
+                                <li>Have insurance information and ID ready</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <div class="container" style="margin-top: 120px;">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="glass-card p-5 mb-5">
+                        <div class="text-center mb-5">
+                            <h1 class="display-4 fw-bold text-white">About MediCare+</h1>
+                            <p class="lead text-white-50">Revolutionizing healthcare through technology and compassion</p>
+                        </div>
+
+                        <div class="row mb-5">
+                            <div class="col-md-6">
+                                <h3 class="text-white mb-3">Our Mission</h3>
+                                <p class="text-white-50">
+                                    To provide accessible, efficient, and intelligent healthcare management solutions 
+                                    that bridge the gap between patients and healthcare providers through cutting-edge technology.
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="text-white mb-3">Our Vision</h3>
+                                <p class="text-white-50">
+                                    To create a world where healthcare is seamless, predictive, and personalized, 
+                                    empowering both patients and medical professionals with AI-driven insights.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-5">
+                            <div class="col-md-4 text-center mb-4">
+                                <div class="feature-icon mb-3">
+                                    <i class="fas fa-brain fa-3x text-primary"></i>
+                                </div>
+                                <h4 class="text-white">AI-Powered Diagnosis</h4>
+                                <p class="text-white-50">Advanced machine learning algorithms assist in accurate and timely medical diagnosis.</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <div class="feature-icon mb-3">
+                                    <i class="fas fa-users fa-3x text-success"></i>
+                                </div>
+                                <h4 class="text-white">Patient-Centric Care</h4>
+                                <p class="text-white-50">Comprehensive patient management system focusing on individual healthcare needs.</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <div class="feature-icon mb-3">
+                                    <i class="fas fa-shield-alt fa-3x text-warning"></i>
+                                </div>
+                                <h4 class="text-white">Secure & Reliable</h4>
+                                <p class="text-white-50">HIPAA-compliant security measures ensuring patient data privacy and system reliability.</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <h3 class="text-white mb-4">Join Our Healthcare Revolution</h3>
+                            <button class="btn btn-primary btn-lg me-3" onclick="navigateToPage('signup')">
+                                <i class="fas fa-user-plus me-2"></i>Sign Up Today
+                            </button>
+                            <button class="btn btn-outline-light btn-lg" onclick="navigateToPage('home')">
+                                <i class="fas fa-home me-2"></i>Back to Home
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="forgotPasswordForm">
+                        <div class="mb-3">
+                            <label for="resetEmail" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="resetEmail" required>
+                            <div class="form-text">We'll send you a reset link to this email address.</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Appointment Modal -->
+    <div class="modal fade" id="bookAppointmentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Book New Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="bookAppointmentForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentSpecialization" class="form-label">Specialization</label>
+                                <select class="form-select" id="appointmentSpecialization" required>
+                                    <option value="">Select Specialization</option>
+                                    <option value="general">General Medicine</option>
+                                    <option value="cardiology">Cardiology</option>
+                                    <option value="neurology">Neurology</option>
+                                    <option value="orthopedics">Orthopedics</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="pediatrics">Pediatrics</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentDoctor" class="form-label">Doctor</label>
+                                <select class="form-select" id="appointmentDoctor" required>
+                                    <option value="">Select Doctor</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentDate" class="form-label">Preferred Date</label>
+                                <input type="date" class="form-control" id="appointmentDate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="appointmentTime" class="form-label">Preferred Time</label>
+                                <select class="form-select" id="appointmentTime" required>
+                                    <option value="">Select Time Slot</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentComplaint" class="form-label">Chief Complaint</label>
+                            <textarea class="form-control" id="appointmentComplaint" rows="3" placeholder="Please describe your symptoms or reason for visit..." required></textarea>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="urgentAppointment">
+                            <label class="form-check-label" for="urgentAppointment">
+                                This is an urgent appointment
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmAppointment()">Book Appointment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Report Modal -->
+    <div class="modal fade" id="uploadReportModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Medical Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="uploadReportForm">
+                        <div class="mb-3">
+                            <label for="reportTitle" class="form-label">Report Title</label>
+                            <input type="text" class="form-control" id="reportTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportType" class="form-label">Report Type</label>
+                            <select class="form-select" id="reportType" required>
+                                <option value="">Select Type</option>
+                                <option value="blood-test">Blood Test</option>
+                                <option value="x-ray">X-Ray</option>
+                                <option value="mri">MRI Scan</option>
+                                <option value="ct-scan">CT Scan</option>
+                                <option value="ultrasound">Ultrasound</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportDate" class="form-label">Report Date</label>
+                            <input type="date" class="form-control" id="reportDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportFile" class="form-label">Upload File</label>
+                            <input type="file" class="form-control" id="reportFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                            <div class="form-text">Supported formats: PDF, JPG, PNG (Max size: 10MB)</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportNotes" class="form-label">Additional Notes</label>
+                            <textarea class="form-control" id="reportNotes" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="uploadReport()">Upload Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Prescription Modal -->
+    <div class="modal fade" id="prescriptionModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Prescription</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newPrescriptionForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="prescriptionPatient" class="form-label">Patient</label>
+                                <select class="form-select" id="prescriptionPatient" required>
+                                    <option value="">Select Patient</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="prescriptionDate" class="form-label">Date</label>
+                                <input type="date" class="form-control" id="prescriptionDate" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prescriptionDiagnosis" class="form-label">Diagnosis</label>
+                            <input type="text" class="form-control" id="prescriptionDiagnosis" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prescriptionMedications" class="form-label">Medications</label>
+                            <textarea class="form-control" id="prescriptionMedications" rows="4" placeholder="Enter medications with dosage and duration..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prescriptionInstructions" class="form-label">Instructions & Precautions</label>
+                            <textarea class="form-control" id="prescriptionInstructions" rows="3" placeholder="Special instructions and precautions..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="prescriptionFollowUp" class="form-label">Follow-up Date</label>
+                            <input type="date" class="form-control" id="prescriptionFollowUp">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="notifyPatient" checked>
+                            <label class="form-check-label" for="notifyPatient">
+                                Notify patient via email/SMS
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="savePrescription()">Save Prescription</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Doctor Modal -->
+    <div class="modal fade" id="addDoctorModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Doctor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addDoctorForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="newDoctorFirstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="newDoctorFirstName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="newDoctorLastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="newDoctorLastName" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="newDoctorEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="newDoctorEmail" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="newDoctorPhone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="newDoctorPhone" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="newDoctorSpecialization" class="form-label">Specialization</label>
+                                <select class="form-select" id="newDoctorSpecialization" required>
+                                    <option value="">Select Specialization</option>
+                                    <option value="general">General Medicine</option>
+                                    <option value="cardiology">Cardiology</option>
+                                    <option value="neurology">Neurology</option>
+                                    <option value="orthopedics">Orthopedics</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="pediatrics">Pediatrics</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="newDoctorExperience" class="form-label">Experience (Years)</label>
+                                <input type="number" class="form-control" id="newDoctorExperience" min="0" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newDoctorLicense" class="form-label">Medical License Number</label>
+                            <input type="text" class="form-control" id="newDoctorLicense" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newDoctorBio" class="form-label">Bio</label>
+                            <textarea class="form-control" id="newDoctorBio" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewDoctor()">Add Doctor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/patient.js"></script>
+    <script src="js/doctor.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/ai-integration.js"></script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+    <!-- Doctor Dashboard -->
+    <div id="doctor-dashboard" class="page">
+        <div class="container-fluid" style="margin-top: 100px;">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3 col-lg-2" id="doctorSidebar">
+                    <div class="sidebar glass-card p-3">
+                        <h5 class="text-white mb-4"><i class="fas fa-user-md me-2"></i>Doctor Portal</h5>
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item mb-2">
+                                <a class="nav-link active sidebar-link" data-target="doctor-overview">
+                                    <i class="fas fa-tachometer-alt me-2"></i>Overview
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="doctor-queue">
+                                    <i class="fas fa-users me-2"></i>Patient Queue
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="doctor-schedule">
+                                    <i class="fas fa-calendar me-2"></i>Schedule
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="doctor-ai-analysis">
+                                    <i class="fas fa-brain me-2"></i>AI Analysis
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="doctor-prescriptions">
+                                    <i class="fas fa-prescription me-2"></i>Prescriptions
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a class="nav-link sidebar-link" data-target="doctor-profile">
+                                    <i class="fas fa-user-cog me-2"></i>Profile
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-9 col-lg-10">
+                    <!-- Doctor Overview -->
+                    <div id="doctor-overview" class="dashboard-content active">
+                        <h2 class="text-white mb-4">Doctor Dashboard</h2>
+                        
+                        <!-- Stats Cards -->
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="todayPatients">0</div>
+                                    <div class="stats-label">Today's Patients</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="pendingQueue">0</div>
+                                    <div class="stats-label">Pending Queue</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="aiAnalyses">0</div>
+                                    <div class="stats-label">AI Analyses</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number" id="prescriptionsIssued">0</div>
+                                    <div class="stats-label">Prescriptions Issued</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Alerts -->
+                        <div id="emergencyAlerts" style="display: none;">
+                            <div class="alert alert-danger alert-custom">
+                                <h5><i class="fas fa-exclamation-triangle me-2"></i>Emergency Alert</h5>
+                                <div id="emergencyContent"></div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="glass-card p-4 mb-4">
+                            <h4 class="text-white mb-3">Quick Actions</h4>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <button class="btn btn-primary w-100" onclick="switchDashboardContent('doctor-queue')">
+                                        <i class="fas fa-users me-2"></i>View Queue
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <button class="btn btn-success w-100" onclick="switchDashboardContent('doctor-ai-analysis')">
+                                        <i class="fas fa-brain me-2"></i>AI Analysis
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <button class="btn btn-info w-100" onclick="showPrescriptionModal()">
+                                        <i class="fas fa-prescription me-2"></i>New Prescription
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <button class="btn btn-warning w-100" onclick="switchDashboardContent('doctor-schedule')">
+                                        <i class="fas fa-calendar me-2"></i>Schedule
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Today's Schedule -->
+                        <div class="glass-card p-4">
+                            <h4 class="text-white mb-3">Today's Schedule</h4>
+                            <div id="todaySchedule" class="text-white-50">
+                                <p>No appointments scheduled for today.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doctor Patient Queue -->
+                    <div id="doctor-queue" class="dashboard-content">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-white">Patient Queue</h2>
+                            <div>
+                                <input type="text" class="form-control d-inline-block" id="queueSearch" placeholder="Search patients..." style="width: 300px;">
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4">
+                            <div class="table-responsive">
+                                <table class="table table-custom" id="patientQueueTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Priority</th>
+                                            <th>Patient Name</th>
+                                            <th>Age</th>
+                                            <th>Complaint</th>
+                                            <th>Time</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="queueTableBody">
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">No patients in queue.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doctor Schedule -->
+                    <div id="doctor-schedule" class="dashboard-content">
+                        <h2 class="text-white mb-4">Schedule Management</h2>
+                        
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="glass-card p-4">
+                                    <h4 class="text-white mb-3">Availability Calendar</h4>
+                                    <div id="scheduleCalendar" class="text-center text-white-50">
+                                        <p>Schedule management interface would be here.</p>
+                                        <p>Click on a date to set availability.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="glass-card p-4">
+                                    <h4 class="text-white mb-3">Set Availability</h4>
+                                    <form id="availabilityForm">
+                                        <div class="mb-3">
+                                            <label for="availabilityDate" class="form-label text-white">Date</label>
+                                            <input type="date" class="form-control" id="availabilityDate">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="startTime" class="form-label text-white">Start Time</label>
+                                            <input type="time" class="form-control" id="startTime">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="endTime" class="form-label text-white">End Time</label>
+                                            <input type="time" class="form-control" id="endTime">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">
+                                            <i class="fas fa-save me-2"></i>Save Availability
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div class="glass-card p-4 mt-4">
+                                    <h4 class="text-white mb-3">Weekly Overview</h4>
+                                    <div id="weeklyOverview" class="text-white-50">
+                                        <p>No schedule set for this week.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doctor AI Analysis -->
+                    <div id="doctor-ai-analysis" class="dashboard-content">
+                        <h2 class="text-white mb-4">AI Medical Analysis</h2>
+                        
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="glass-card p-4 mb-4">
+                                    <h4 class="text-white mb-3">Patient Images & Reports</h4>
+                                    <div id="patientImagesGrid" class="row">
+                                        <div class="col-12 text-center text-muted">
+                                            No patient images available for analysis.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="glass-card p-4">
+                                    <h4 class="text-white mb-3">AI Analysis Results</h4>
+                                    <div id="aiAnalysisResults" class="text-white-50">
+                                        <p>Select an image to view AI analysis results.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doctor Prescriptions -->
+                    <div id="doctor-prescriptions" class="dashboard-content">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-white">Prescriptions</h2>
+                            <button class="btn btn-primary" onclick="showPrescriptionModal()">
+                                <i class="fas fa-plus me-2"></i>New Prescription
+                            </button>
+                        </div>
+
+                        <div class="glass-card p-4">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="prescriptionSearchDoctor" placeholder="Search prescriptions...">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" id="prescriptionFilterDoctor">
+                                        <option value="">All Prescriptions</option>
+                                        <option value="today">Today's Prescriptions</option>
+                                        <option value="week">This Week</option>
+                                        <option value="month">This Month</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-custom" id="doctorPrescriptionsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Patient</th>
+                                            <th>Diagnosis</th>
+                                            <th>Medications</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="doctorPrescriptionsBody">
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted">No prescriptions found.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doctor Profile -->
+                    <div id="doctor-profile" class="dashboard-content">
+                        <h2 class="text-white mb-4">Doctor Profile</h2>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="profile-card">
+                                    <div class="profile-avatar" id="doctorProfileAvatar">
+                                        <i class="fas fa-user-md"></i>
+                                    </div>
+                                    <h4 id="doctorProfileName">Loading...</h4>
+                                    <p id="doctorSpecialization">Specialist</p>
+                                    <button class="btn btn-outline-light" onclick="document.getElementById('doctorProfileImageInput').click()">
+                                        Change Photo
+                                    </button>
+                                    <input type="file" id="doctorProfileImageInput" accept="image/*" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="glass-card p-4">
+                                    <h4 class="text-white mb-4">Professional Information</h4>
+                                    <form id="doctorProfileForm">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="doctorFirstName" class="form-label text-white">First Name</label>
+                                                <input type="text" class="form-control" id="doctorFirstName">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="doctorLastName" class="form-label text-white">Last Name</label>
+                                                <input type="text" class="form-control" id="doctorLastName">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="doctorEmail" class="form-label text-white">Email</label>
+                                                <input type="email" class="form-control" id="doctorEmail">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="doctorPhone" class="form-label text-white">Phone</label>
+                                                <input type="tel" class="form-control" id="doctorPhone">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="doctorSpecializationInput" class="form-label text-white">Specialization</label>
+                                                <select class="form-select" id="doctorSpecializationInput">
+                                                    <option value="">Select Specialization</option>
+                                                    <option value="cardiology">Cardiology</option>
+                                                    <option value="neurology">Neurology</option>
+                                                    <option value="orthopedics">Orthopedics</option>
+                                                    <option value="dermatology">Dermatology</option>
+                                                    <option value="pediatrics">Pediatrics</option>
+                                                    <option value="general">General Medicine</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="doctorExperience" class="form-label text-white">Experience (Years)</label>
+                                                <input type="number" class="form-control" id="doctorExperience">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="doctorLicense" class="form-label text-white">Medical License Number</label>
+                                            <input type="text" class="form-control" id="doctorLicense">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="doctorBio" class="form-label text-white">Bio</label>
+                                            <textarea class="form-control" id="doctorBio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-2"></i>Save Changes
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
